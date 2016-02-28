@@ -29,7 +29,7 @@ Tubepop.prototype.undockPlayer = function() {
         this._disposeOriginalTab();
     }
     else {
-        alert("I'm sorry :(\nYour current tab is not youtube.");
+        alert("I'm sorry :(\nYou're current tab is not Youtube.");
     }
 };
 
@@ -39,14 +39,28 @@ Tubepop.prototype._disposeOriginalTab = function() {
     }
 };
 
+Tubepop.prototype._createNewTab = function(windowId) {
+    chrome.tabs.create({
+        url: this._url,
+        active: true
+    });
+};
+
 Tubepop.prototype._createWindow = function() {
     var that = this;
     if (chrome) {
         chrome.windows.create({
             "url": this._getEmbedLink(this._url),
-            "type": "popup",
+            "type": "detached_panel",
             "width": 1024,
-            "height": 576
+            "height": 576,
+        },
+        function(window) {
+            chrome.windows.onRemoved.addListener(function(windowId) {
+                if (windowId == window.id) {
+                    that._createNewTab(windowId);
+                }
+            });
         });
     }
 };
