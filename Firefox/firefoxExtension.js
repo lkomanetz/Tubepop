@@ -4,7 +4,7 @@ var tabs = require("sdk/tabs");
 var windows = require("sdk/windows").browserWindows;
 var panels = require("sdk/panel");
 var frame = require("sdk/ui/frame");
-var regex = /(\w+:\/\/\w{3}\.\w+\.(com|org|gov|be))(\/\w+\?\w{1}=(.+?)(?!\w+))/;
+var regex = /(\w+:\/\/\w{3}\.\w+\.(com|org|gov|be))(\/\w+\?\w{1}=([^\&]*))/;
 
 var button = buttons.ActionButton({
     id: "tubepop",

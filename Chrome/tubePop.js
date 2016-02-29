@@ -1,5 +1,5 @@
 function Tubepop(url, tabId) {
-    this.regex = /(\w+:\/\/\w{3}\.\w+\.(com|org|gov|be))(\/\w+\?\w{1}=(.+?)(?!\w+))/;
+    this.regex = /(\w+:\/\/\w{3}\.\w+\.(com|org|gov|be))(\/\w+\?\w{1}=([^\&]*))/;
     this.match = null;
     this.dialog = null;
     this._url = url;
