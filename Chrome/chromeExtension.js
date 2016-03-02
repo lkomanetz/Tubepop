@@ -1,4 +1,12 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
     var tubePop = new Tubepop(tab.url, tab.id);
-    tubePop.undockPlayer();
+    
+    chrome.tabs.sendMessage(
+        tab.id,
+        {event: "tubepop_clicked"},
+        function(response) {
+            tubePop.undockPlayer(response.content);
+        }
+    );
+    
 });

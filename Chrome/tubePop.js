@@ -4,6 +4,7 @@ function Tubepop(url, tabId) {
     this.dialog = null;
     this._url = url;
     this._tabId = tabId;
+    this._timestamp = 0;
 }
 
 Tubepop.prototype._isCurrentTabYoutube = function() {
@@ -18,12 +19,14 @@ Tubepop.prototype._isCurrentTabYoutube = function() {
 };
 
 Tubepop.prototype._getEmbedLink = function() {
+    var timestampStr = parseInt(this._timestamp).toString();
     this.match = this.regex.exec(this._url);
-    var embeddedUrl = this.match[1] + "/embed/" + this.match[4];
+    var embeddedUrl = this.match[1] + "/embed/" + this.match[4] + "?start=" + timestampStr;
     return embeddedUrl;
 };
 
-Tubepop.prototype.undockPlayer = function() {
+Tubepop.prototype.undockPlayer = function(timestamp) {
+    this._timestamp = timestamp;
     if (this._isCurrentTabYoutube()) {
         this._createWindow();
         this._disposeOriginalTab();
@@ -47,7 +50,7 @@ Tubepop.prototype._createNewTab = function(windowId) {
 };
 
 Tubepop.prototype._createWindow = function() {
-    var that = this; // Used in the onRemoved listener below
+    var that = this; 
     
     if (chrome) {
         chrome.windows.create({
