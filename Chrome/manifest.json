@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Tubepop",
     "description": "Undocks the embedded youtube video from their site into its own window.",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "browser_action": {
         "default_icon": "button_black_eject.png",
         "default_title": "Click to pop video out of YouTube."
