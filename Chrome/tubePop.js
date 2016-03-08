@@ -21,7 +21,7 @@ Tubepop.prototype._isCurrentTabYoutube = function() {
 Tubepop.prototype._getEmbedLink = function() {
     var timestampStr = parseInt(this._timestamp).toString();
     this.match = this.regex.exec(this._url);
-    var embeddedUrl = this.match[1] + "/embed/" + this.match[4] + "?start=" + timestampStr;
+    var embeddedUrl = this.match[1] + "/embed/" + this.match[4] + "?start=" + timestampStr + "&autoplay=1";
     return embeddedUrl;
 };
 

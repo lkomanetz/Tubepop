@@ -7,7 +7,7 @@ s.onload = function() {
     s.parentNode.removeChild(this);
 };
 
-document.addEventListener("Tubepop_ExtensionConnection", function(e) {
+document.addEventListener("Tubepop_TimeChanged", function(e) {
     currentTime = e.detail;
 });
 

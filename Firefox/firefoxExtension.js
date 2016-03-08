@@ -3,10 +3,9 @@ var notifications = require("sdk/notifications");
 var tabs = require("sdk/tabs");
 var windows = require("sdk/windows").browserWindows;
 var data = require("sdk/self").data;
-var pageMod = require("sdk/page-mod");
-var panels = require("sdk/panel");
-var frame = require("sdk/ui/frame");
+
 var regex = /(\w+:\/\/\w{3}\.\w+\.(\w{3}|\w{2}))(\/\w+\?\w{1}=([^\&]*))/;
+var currentTime = 0;
 
 var button = buttons.ActionButton({
     id: "tubepop",
@@ -19,10 +18,18 @@ var button = buttons.ActionButton({
     onClick: handleClick
 });
 
-pageMod.PageMod({
-    include: "*.youtube.com",
-    contentScriptFile: data.url("scripts/clientScript.js")
+tabs.on("ready", function(tab) {
+    var worker = tab.attach({
+        contentScriptFile: data.url("scripts/contentScript.js"),
+    });
+    
+    worker.port.emit("scriptUrl", data.url("scripts/clientScript.js"))
+    worker.port.on("current_time", setCurrentTime);
 });
+
+function setCurrentTime(newTime) {
+    currentTime = newTime;
+}
 
 function handleClick(state) {
     if (!isCurrentTabYoutube()) {
@@ -40,17 +47,15 @@ function handleClick(state) {
         windows.open({
             url: embedLink,
             onOpen: function(window) {
-                window.resizeTo(1024, 576);
                 tab.close();
             }
         });
-        
     }
 }
 
 function getEmbedLink() {
     var match = regex.exec(tabs.activeTab.url);
-    return match[1] + "/embed/" + match[4];
+    return match[1] + "/embed/" + match[4] + "?start=" + parseInt(currentTime) + "&autoplay=1";
 }
 
 function isCurrentTabYoutube() {

@@ -1,16 +1,31 @@
-var doc = window.content.document;
+var previousTime = 0;
 
-if (doc) {
-    var intervalHandle = setInterval(function() {
-        var player = doc.getElementById("movie_player");
+var intervalHandle = setInterval(function() {
+    try {
+        var player = document.getElementById("movie_player");
 
         if (player) {
-            console.log(player);
+            var newTime = player.getCurrentTime();
+            
+            if (previousTime != newTime) {
+                previousTime = newTime;
+                sendCurrentTime(newTime);
+            }
         }
-    }, 1000);
-
-    document.onunload = function() {
-        clearInterval(intervalHandle);
-        intervalHandle = null;
     }
+    catch (err) {
+        console.log(err);
+    }
+    
+}, 1000);
+
+document.onunload = function() {
+    clearInterval(intervalHandle);
+    intervalHandle = 0;
+};
+
+function sendCurrentTime(time) {
+    document.dispatchEvent(new CustomEvent("Tubepop_TimeChanged", {
+        detail: time
+    }));
 }
