@@ -1,9 +1,10 @@
-function Tubepop(url, tabId) {
+function Tubepop() {
+    this._options = null;
     this.regex = /(\w+:\/\/\w{3}\.\w+\.(\w{3}|\w{2}))(\/\w+\?\w{1}=([^\&]*))/;
     this.match = null;
     this.dialog = null;
-    this._url = url;
-    this._tabId = tabId;
+    this._url = null;
+    this._tabId = null;
     this._timestamp = 0;
 }
 
@@ -21,7 +22,16 @@ Tubepop.prototype._isCurrentTabYoutube = function() {
 Tubepop.prototype._getEmbedLink = function() {
     var timestampStr = parseInt(this._timestamp).toString();
     this.match = this.regex.exec(this._url);
-    var embeddedUrl = this.match[1] + "/embed/" + this.match[4] + "?start=" + timestampStr + "&autoplay=1";
+    var embeddedUrl = this.match[1] + "/embed/" + this.match[4];
+    
+    alert(this._options);
+    if (this._options.startAtCurrentTime) {
+        embeddedUrl += "?start=" + timestampStr;
+    }
+    if (this._options.useAutoplay) {
+        embeddedUrl += "&autoplay=1";
+    }
+    
     return embeddedUrl;
 };
 
@@ -34,6 +44,20 @@ Tubepop.prototype.undockPlayer = function(timestamp) {
     else {
         alert("I'm sorry :(\nYou're current tab is not Youtube.");
     }
+};
+
+Tubepop.prototype.setUrl(url) {
+    alert("hi");
+    this._url = url;
+};
+
+Tubepop.prototype.setTabId(id) {
+    this._tabId = id;
+};
+
+Tubepop.prototype.setOptions = function(newOptions) {
+    alert("hello");
+    this._options = newOptions;
 };
 
 Tubepop.prototype._disposeOriginalTab = function() {

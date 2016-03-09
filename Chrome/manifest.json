@@ -22,6 +22,12 @@
     "permissions": [
         "activeTab",
         "tabs",
-        "notifications"
-    ]
+        "notifications",
+        "storage"
+    ],
+    "options_page": "views/options.html",
+    "options_ui": {
+        "page": "views/options.html",
+        "chrome_style": true
+    }
 }

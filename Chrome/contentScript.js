@@ -10,7 +10,7 @@ s.onload = function() {
 document.addEventListener("Tubepop_TimeChanged", function(e) {
     currentTime = e.detail;
 });
-
+    
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.event === "tubepop_clicked") {
         sendResponse({content: currentTime});
