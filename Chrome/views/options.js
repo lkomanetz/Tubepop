@@ -15,10 +15,9 @@ function restoreOptions() {
                 document.getElementById("chkAutoplay").checked = options.useAutoplay;
                 document.getElementById("txtWidth").value = options.playerWidth;
                 document.getElementById("txtHeight").value = options.playerHeight;
-                document.getElementById("chkPlayAt").checked = options.startAtCurrentTime;
             });
         }
-    }
+    };
     
     xhr.send(null);
 }
@@ -28,14 +27,12 @@ function saveOptions() {
     var width = parseInt(document.getElementById("txtWidth").value);
     var height = parseInt(document.getElementById("txtHeight").value);
     var autoPlay = document.getElementById("chkAutoplay").checked;
-    var startAtCurrentTime = document.getElementById("chkPlayAt").checked;
     
     var tubepopOptions = {
         closeAction: action,
         playerWidth: width,
         playerHeight: height,
-        useAutoplay: autoPlay,
-        startAtCurrentTime: startAtCurrentTime
+        useAutoplay: autoPlay
     };
     
     chrome.storage.sync.set({"tubepopOptions": tubepopOptions}, function() {

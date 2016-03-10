@@ -2,6 +2,5 @@
     "closeAction": "Redock",
     "playerWidth": 1024,
     "playerHeight": 576,
-    "useAutoplay": true,
-    "startAtCurrentTime": true
+    "useAutoplay": true
 }

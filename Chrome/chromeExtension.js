@@ -1,6 +1,9 @@
-var tubePop = new Tubepop();
+var tubePop;
 
 chrome.browserAction.onClicked.addListener(function(tab) {
+    if (!tubePop) {
+        tubePop = new Tubepop();
+    }
     tubePop.setUrl(tab.url);
     tubePop.setTabId(tab.id);
     
@@ -15,9 +18,11 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 });
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
+    if (!tubePop) {
+        tubePop = new Tubepop();
+    }
     for (key in changes) {
         if (key === "tubepopOptions") {
-            alert("Hello");
             tubePop.setOptions(changes[key].newValue);
         }
     }
