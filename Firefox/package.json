@@ -1,7 +1,7 @@
 {
 	"title": "Tubepop",
 	"name": "tubepop",
-	"version": "1.2.1",
+	"version": "1.3.0",
 	"description": "Allows you to undock a YouTube video from the site into its own window.",
 	"main": "firefoxExtension.js",
 	"author": "Logan Komanetz",

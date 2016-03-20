@@ -39,7 +39,7 @@ tabs.on("ready", function(tab) {
 });
 
 windows.on("close", function(window) {
-	if (closeAction === "redock") {
+	if (closeAction === "redock" && windows.activeWindow) {
 		windows.activeWindow.tabs.open(videoUrl);
 	}
 });
@@ -61,7 +61,7 @@ function handleClick(state) {
         var embedLink = getEmbedLink();
         var tab = tabs.activeTab;
 
-	videoUrl = tabl.url;
+	videoUrl = tab.url;
         
         windows.open({
             url: embedLink,
