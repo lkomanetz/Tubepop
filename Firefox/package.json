@@ -17,8 +17,16 @@
 		"name": "closeAction",
 		"title": "Close Action",
 		"description": "Determines what happens after player is closed",
-		"type": "string",
-		"value": "redock"
+		"type": "menulist",
+		"value": "redock",
+        "options": [{
+            "value": "redock",
+            "label": "Re-Dock"
+        },
+        {
+			"value": "close",
+			"label": "Close"
+		}]
 	},
 	{
 		"name": "useAutoplay",

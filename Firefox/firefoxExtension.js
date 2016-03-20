@@ -59,7 +59,7 @@ function handleClick(state) {
 
 function getEmbedLink() {
     var match = regex.exec(tabs.activeTab.url);
-	var useAutoplay = preferences.prefs["useAutoplay"];
+	var useAutoplay = require("sdk/simple-prefs").prefs["useAutoplay"];
 	var embeddedUrl = match[1] + "/embed/" + match[4] + "?start=" + parseInt(currentTime);
 	
 	if (useAutoplay) {

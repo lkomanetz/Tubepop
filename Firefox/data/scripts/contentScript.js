@@ -24,6 +24,5 @@ self.port.on("scriptUrl", function(url) {
  */
 document.addEventListener("Tubepop_TimeChanged", function(e) {
     currentTime = e.detail;
-    console.log(currentTime);
     self.port.emit("current_time", currentTime);
 });
