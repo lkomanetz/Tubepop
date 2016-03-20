@@ -8,6 +8,7 @@ var data = require("sdk/self").data;
 
 var regex = /(\w+:\/\/\w{3}\.\w+\.(\w{3}|\w{2}))(\/\w+\?\w{1}=([^\&]*))/;
 var currentTime = 0;
+var videoUrl;
 
 require("sdk/simple-prefs").on("", onSettingChanged);
 
@@ -31,6 +32,12 @@ tabs.on("ready", function(tab) {
     worker.port.on("current_time", setCurrentTime);
 });
 
+windows.on("close", function(window) {
+	if (closeAction === "redock") {
+		windows.activeWindow.tabs.open(videoUrl);
+	}
+});
+
 function setCurrentTime(newTime) {
     currentTime = newTime;
 }
@@ -47,6 +54,8 @@ function handleClick(state) {
     else {
         var embedLink = getEmbedLink();
         var tab = tabs.activeTab;
+
+	videoUrl = tabl.url;
         
         windows.open({
             url: embedLink,
