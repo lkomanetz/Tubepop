@@ -1,11 +1,15 @@
 var buttons = require("sdk/ui/button/action");
 var notifications = require("sdk/notifications");
 var tabs = require("sdk/tabs");
+var useAutoplay = require("sdk/simple-prefs").prefs["useAutoplay"];
+var closeAction = require("sdk/simple-prefs").prefs["closeAction"];
 var windows = require("sdk/windows").browserWindows;
 var data = require("sdk/self").data;
 
 var regex = /(\w+:\/\/\w{3}\.\w+\.(\w{3}|\w{2}))(\/\w+\?\w{1}=([^\&]*))/;
 var currentTime = 0;
+
+require("sdk/simple-prefs").on("", onSettingChanged);
 
 var button = buttons.ActionButton({
     id: "tubepop",
@@ -55,7 +59,14 @@ function handleClick(state) {
 
 function getEmbedLink() {
     var match = regex.exec(tabs.activeTab.url);
-    return match[1] + "/embed/" + match[4] + "?start=" + parseInt(currentTime) + "&autoplay=1";
+	var useAutoplay = preferences.prefs["useAutoplay"];
+	var embeddedUrl = match[1] + "/embed/" + match[4] + "?start=" + parseInt(currentTime);
+	
+	if (useAutoplay) {
+		embeddedUrl += "&autoplay=1";
+	}
+	
+    return embeddedUrl;
 }
 
 function isCurrentTabYoutube() {
@@ -67,4 +78,15 @@ function isCurrentTabYoutube() {
     }
     
     return isYoutube;
+}
+
+function onSettingChanged(setting) {
+	switch (setting) {
+		case "closeAction":
+			closeAction = require("sdk/simple-prefs").prefs[setting];
+			break;
+		case "useAutoplay":
+			useAutoplay = require("sdk/simple-prefs").prefs[setting];
+			break;
+	}
 }

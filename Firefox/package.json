@@ -1,16 +1,30 @@
 {
-  "title": "Tubepop",
-  "name": "tubepop",
-  "version": "1.2.1",
-  "description": "Allows you to undock a YouTube video from the site into its own window.",
-  "main": "firefoxExtension.js",
-  "author": "Logan Komanetz",
-  "engines": {
-    "firefox": ">=38.0a1",
-    "fennec": ">=38.0a1"
-  },
-  "license": "MIT",
-  "keywords": [
-    "jetpack"
-  ]
+	"title": "Tubepop",
+	"name": "tubepop",
+	"version": "1.2.1",
+	"description": "Allows you to undock a YouTube video from the site into its own window.",
+	"main": "firefoxExtension.js",
+	"author": "Logan Komanetz",
+	"engines": {
+		"firefox": ">=38.0a1",
+		"fennec": ">=38.0a1"
+	},
+	"license": "MIT",
+	"keywords": [
+		"jetpack"
+	],
+	"preferences": [{
+		"name": "closeAction",
+		"title": "Close Action",
+		"description": "Determines what happens after player is closed",
+		"type": "string",
+		"value": "redock"
+	},
+	{
+		"name": "useAutoplay",
+		"title": "Use Autoplay",
+		"description": "Dictates whether video plays automatically or not",
+		"type": "bool",
+		"value": true
+	}]
 }
