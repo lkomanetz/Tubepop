@@ -23,6 +23,12 @@ var button = buttons.ActionButton({
     onClick: handleClick
 });
 
+/**
+ * I'm sending the url of the client script from here to the content script
+ * that is being attached to the tab.  This allows the content script to 
+ * generate a <script> tag on the page and inject the clientScript.js file
+ * location into the <script> tag's source property.
+ */
 tabs.on("ready", function(tab) {
     var worker = tab.attach({
         contentScriptFile: data.url("scripts/contentScript.js"),
@@ -67,7 +73,7 @@ function handleClick(state) {
 }
 
 function getEmbedLink() {
-    var match = regex.exec(tabs.activeTab.url);
+	var match = regex.exec(tabs.activeTab.url);
 	var useAutoplay = require("sdk/simple-prefs").prefs["useAutoplay"];
 	var embeddedUrl = match[1] + "/embed/" + match[4] + "?start=" + parseInt(currentTime);
 	
