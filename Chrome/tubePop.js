@@ -101,7 +101,7 @@ Tubepop.prototype._createWindow = function() {
     if (chrome) {
         chrome.windows.create({
             "url": this._getEmbedLink(this._url),
-            "type": "detached_panel",
+            "type": "popup",
             "width": this._options.playerWidth,
             "height": this._options.playerHeight,
         },
