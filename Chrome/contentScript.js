@@ -11,6 +11,7 @@ document.addEventListener("Tubepop_TimeChanged", function(e) {
     currentTime = e.detail;
 });
     
+console.log("adding listener");
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.event === "tubepop_clicked") {
         sendResponse({content: currentTime});

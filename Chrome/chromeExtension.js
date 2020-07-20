@@ -1,6 +1,6 @@
 var tubePop;
 
-chrome.pageAction.onClicked.addListener(function(tab) {
+chrome.browserAction.onClicked.addListener(function(tab) {
     if (!tubePop) {
         tubePop = new Tubepop();
     }
@@ -11,6 +11,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
         tab.id,
         {event: "tubepop_clicked"},
         function(response) {
+            console.log(chrome.runtime.lastError);
             tubePop.undockPlayer(response.content);
         }
     );
@@ -28,6 +29,17 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
     }
 });
 
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (!changeInfo.url) return;
+    var regex = /youtube.com\/watch/;
+    if (changeInfo.url.match(regex)) {
+        console.log(changeInfo.url);
+        chrome.browserAction.enable(tab.id);
+    }
+    else chrome.browserAction.disable(tab.id);
+});
+
+/*
 chrome.runtime.onInstalled.addListener(function () {
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
         chrome.declarativeContent.onPageChanged.addRules([{
@@ -35,9 +47,6 @@ chrome.runtime.onInstalled.addListener(function () {
                 new chrome.declarativeContent.PageStateMatcher({
                     pageUrl: { urlContains: "youtube.com/watch" }
                 })
-                // new chrome.declarativeContent.PageStateMatcher({
-                //     css: ["video"]
-                // })
             ],
             actions: [
                 new chrome.declarativeContent.ShowPageAction()
@@ -45,3 +54,4 @@ chrome.runtime.onInstalled.addListener(function () {
         }]);
     });
 });
+*/
